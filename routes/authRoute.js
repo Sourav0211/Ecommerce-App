@@ -1,5 +1,10 @@
 import express from "express";
-import {registerController, loginController, testController} from '../controllers/authController.js'
+import {
+  registerController,
+  loginController,
+  testController,
+  forgotPasswordController,
+} from "../controllers/authController.js";
 import { isAdmin, requireSignIn } from "../middlewares/authMiddleware.js";
 
 //router object
@@ -8,11 +13,22 @@ const router = express.Router();
 //routing
 //Register || METHOD POST
 
-router.post('/register', registerController);
+router.post("/register", registerController);
 
 //LOGIN || POST
-router.post('/login', loginController)
+router.post("/login", loginController);
+
+//Forgot Password
+router.post("/forgot-password", forgotPasswordController);
 
 //test routes
-router.get('/test',requireSignIn,isAdmin, testController);
+router.get("/test", requireSignIn, isAdmin, testController);
+
+//protected auth route
+router.get("/user-auth", requireSignIn, (req, res) => {
+  res.status(200).send({
+    ok: true,
+  });
+});
+
 export default router;
