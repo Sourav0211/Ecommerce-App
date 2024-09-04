@@ -1,8 +1,12 @@
 import slugify from "slugify";
 import productModel from "../models/productModel.js";
 import categoryModel from "../models/categoryModel.js";
+import orderModel from "../models/orderModel.js";
 import fs from "fs";
 import braintree from "braintree";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 var gateway = new braintree.BraintreeGateway({
   environment: braintree.Environment.Sandbox,
